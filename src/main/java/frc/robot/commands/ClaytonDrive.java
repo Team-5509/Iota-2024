@@ -74,7 +74,7 @@ public class ClaytonDrive extends Command {
         }
         
         m_driveTrain.drive(new Translation2d(xVelocity * m_driveTrain.maximumSpeed, yVelocity * m_driveTrain.maximumSpeed), 
-        angVelocity, false);
+        angVelocity, true);
     }
 
     // Called once the command ends or is interrupted.
