@@ -67,8 +67,7 @@ public class ClaytonDrive extends Command {
         //     velocity = 0;
         // }
         // m_driveTrain.run(velocity);
-        PIDFConfig config = new PIDFConfig();
-        SmartDashboard.putNumber("P",config.p);
+        
         //config.p = RobotContainer.getInstance().getJoystick1().getRawAxis(3);
         double xVelocity = RobotContainer.getInstance().getJoystick1().getRawAxis(0);
         double yVelocity = RobotContainer.getInstance().getJoystick1().getRawAxis(1);
