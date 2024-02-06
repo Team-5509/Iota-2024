@@ -62,12 +62,13 @@ public class ClaytonDrive extends Command {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
+        
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        SwerveDriveTelemetry.verbosity = TelemetryVerbosity.HIGH;
+        
         // SmartDashboard.putNumber("I", SwerveParser.pidfPropertiesJson.angle.i);
         // SmartDashboard.putNumber("D", SwerveParser.pidfPropertiesJson.angle.d);
         // SwerveParser.pidfPropertiesJson.angle.p = SmartDashboard.getNumber("P", SwerveParser.pidfPropertiesJson.angle.p);
@@ -100,6 +101,9 @@ public class ClaytonDrive extends Command {
         SmartDashboard.putNumber("I", SwerveParser.pidfPropertiesJson.angle.i);
         SmartDashboard.putNumber("D", SwerveParser.pidfPropertiesJson.angle.d);
         SmartDashboard.putNumber("Samp", m_driveTrain.getSamp());
+        SwerveParser.pidfPropertiesJson.angle.p = SmartDashboard.getNumber("P", SwerveParser.pidfPropertiesJson.angle.p);
+        double hi = new swervelib.parser.PIDFConfig().p;
+        //double hi2 = config.p;
     }
 
     // Called once the command ends or is interrupted.
