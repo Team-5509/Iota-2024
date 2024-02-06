@@ -63,6 +63,15 @@ public class ClaytonDrive extends Command {
         double xVelocity = RobotContainer.getInstance().getJoystick1().getRawAxis(0);
         double yVelocity = RobotContainer.getInstance().getJoystick1().getRawAxis(1);
         double angVelocity = RobotContainer.getInstance().getJoystick1().getRawAxis(4);
+        if(Math.abs(xVelocity)<.2){
+            xVelocity = 0;
+        }
+        if(Math.abs(yVelocity)<.2){
+            yVelocity = 0;
+        }
+        if(Math.abs(angVelocity)<.2){
+            angVelocity = 0;
+        }
         m_driveTrain.drive(new Translation2d(xVelocity * m_driveTrain.maximumSpeed, yVelocity * m_driveTrain.maximumSpeed), 
         angVelocity, false);
     }
