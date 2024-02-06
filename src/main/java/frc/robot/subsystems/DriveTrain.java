@@ -86,9 +86,9 @@ public class DriveTrain extends SubsystemBase {
     public void run(double speed){
         canOne.set(speed);
     }
-    public double getSamp(){
-        return samp.getAbsolutePosition();
-    }
+    // public double getSamp(){
+    //     return samp.getAbsolutePosition();
+    // }
     @Override
     public void periodic() {
         // This method will be called once per scheduler run
