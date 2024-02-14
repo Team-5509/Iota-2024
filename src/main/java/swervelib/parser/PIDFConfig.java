@@ -6,7 +6,8 @@ import swervelib.parser.deserializer.PIDFRange;
 /**
  * Hold the PIDF and Integral Zone values for a PID.
  */
-public class PIDFConfig {
+public class PIDFConfig
+{
 
   /**
    * Proportional Gain for PID.
@@ -37,7 +38,8 @@ public class PIDFConfig {
   /**
    * Used when parsing PIDF values from JSON.
    */
-  public PIDFConfig() {
+  public PIDFConfig()
+  {
   }
 
   /**
@@ -49,7 +51,8 @@ public class PIDFConfig {
    * @param f  F gain.
    * @param iz Intergral zone.
    */
-  public PIDFConfig(double p, double i, double d, double f, double iz) {
+  public PIDFConfig(double p, double i, double d, double f, double iz)
+  {
     this.p = p;
     this.i = i;
     this.d = d;
@@ -65,7 +68,8 @@ public class PIDFConfig {
    * @param d D gain.
    * @param f F gain.
    */
-  public PIDFConfig(double p, double i, double d, double f) {
+  public PIDFConfig(double p, double i, double d, double f)
+  {
     this(p, i, d, f, 0);
   }
 
@@ -76,7 +80,8 @@ public class PIDFConfig {
    * @param i I gain.
    * @param d D gain.
    */
-  public PIDFConfig(double p, double i, double d) {
+  public PIDFConfig(double p, double i, double d)
+  {
     this(p, i, d, 0, 0);
   }
 
@@ -86,7 +91,8 @@ public class PIDFConfig {
    * @param p P gain.
    * @param d D gain.
    */
-  public PIDFConfig(double p, double d) {
+  public PIDFConfig(double p, double d)
+  {
     this(p, 0, d, 0, 0);
   }
 
@@ -95,7 +101,8 @@ public class PIDFConfig {
    *
    * @return PIDController.
    */
-  public PIDController createPIDController() {
+  public PIDController createPIDController()
+  {
     return new PIDController(p, i, d);
   }
 }
