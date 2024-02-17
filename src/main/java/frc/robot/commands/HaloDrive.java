@@ -73,7 +73,7 @@ public class HaloDrive extends Command {
         }
         xVelocity = Math.pow(xVelocity, delinearization);
         yVelocity = Math.pow(yVelocity, delinearization);
-        //m_driveTrain.drive(new Translation2d(xVelocity, yVelocity),rotationVelocity,true);
+        m_driveTrain.drive(new Translation2d(xVelocity, yVelocity),rotationVelocity,true);
         m_driveTrain.dispPID();
     }
 
