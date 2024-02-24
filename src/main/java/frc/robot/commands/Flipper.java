@@ -72,7 +72,9 @@ public class Flipper extends Command {
             speed = -1;
         }
         //check if method should be called. 
-        if (  m_intakeArm.getFlipperPosition() == max && speed == 1 ||  m_intakeArm.getFlipperPosition() == max - .5 && speed == -1)
+        if (  m_intakeArm.getFlipperPosition() == max && speed == 1 ||  m_intakeArm.getFlipperPosition() == max - .5 && speed == -1){
+            m_intakeArm.moveintakeinbounds(0);
+        }
         // check min and max dont hardcode max
         m_intakeArm.moveintakeinbounds(speed);
     }
