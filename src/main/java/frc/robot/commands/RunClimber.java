@@ -66,17 +66,20 @@ public class RunClimber extends Command {
         double left = RobotContainer.getInstance().getAuxController().getRawAxis(5);
 
         //check if method should be called. 
-        if (((m_climber.getRightPos() == rightStart) && (m_climber.getRightPos() < 0)) || ((m_climber.getRightPos() == rightMax) && (m_climber.getRightPos() > 0))){
+        if (((m_climber.getRightPos() <= rightStart) && (right < 0)) || ((m_climber.getRightPos() >= rightMax) && (right > 0))){
             m_climber.stopRightClimber();
         }
         // check min and max dont hardcode max
-        m_climber.runRightClimber();
-
-        if (((m_climber.getLeftPos() == leftStart) && (m_climber.getLeftPos() < 0)) || ((m_climber.getLeftPos() == leftMax) && (m_climber.getLeftPos() > 0))){
+        else{
+            m_climber.runRightClimber(right);
+        }
+        if (((m_climber.getLeftPos() <= leftStart) && (left < 0)) || ((m_climber.getLeftPos() >= leftMax) && (left > 0))){
             m_climber.stopLeftClimber();
         }
 
-        m_climber.runRightClimber();
+        else{
+            m_climber.runRightClimber(left);
+        }
     }
 
     
