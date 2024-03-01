@@ -62,8 +62,8 @@ public class RunClimber extends Command {
     public void execute() {
 
 
-        double right = RobotContainer.getInstance().getAuxController().getRawAxis(6);
-        double left = RobotContainer.getInstance().getAuxController().getRawAxis(5);
+        double right = RobotContainer.getInstance().getAuxController().getRawAxis(5);
+        double left = RobotContainer.getInstance().getAuxController().getRawAxis(1);
 
         //check if method should be called. 
         if (((m_climber.getRightPos() <= rightStart) && (right < 0)) || ((m_climber.getRightPos() >= rightMax) && (right > 0))){
