@@ -205,6 +205,9 @@ private final XboxController auxController = new XboxController(1);
 public XboxController getAuxController(){
   return auxController;
 }
+public XboxController getDriverController(){
+  return driverXbox;
+}
 }
 
 

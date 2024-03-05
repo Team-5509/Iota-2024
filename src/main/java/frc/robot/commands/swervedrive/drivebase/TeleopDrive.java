@@ -10,6 +10,7 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import java.util.List;
 import java.util.function.DoubleSupplier;
@@ -66,7 +67,9 @@ public class TeleopDrive extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-
+    double finnesse = 1;
+    if (RobotContainer.getInstance().getDriverController().getRawButton(5)) { finnesse /= 2;}
+    if (RobotContainer.getInstance().getDriverController().getRawButton(6)) {finnesse /= 3;}
     if (Math.abs(heading.getAsDouble()) > swerve.getSwerveController().config.angleJoyStickRadiusDeadband) {
       rotationSpeed = heading.getAsDouble()*swerve.getSwerveController().config.maxAngularVelocity;
     }
@@ -74,7 +77,7 @@ public class TeleopDrive extends Command {
       rotationSpeed = 0;
     }
 
-    ChassisSpeeds desiredSpeeds = swerve.getTargetSpeeds(vX.getAsDouble(), vY.getAsDouble(), new Rotation2d(rotationSpeed));
+    ChassisSpeeds desiredSpeeds = swerve.getTargetSpeeds(vX.getAsDouble() * finnesse, vY.getAsDouble() * finnesse, new Rotation2d(rotationSpeed * finnesse));
     
     // Limit velocity to prevent tippy
     Translation2d translation = SwerveController.getTranslation2d(desiredSpeeds);
@@ -85,7 +88,7 @@ public class TeleopDrive extends Command {
     SmartDashboard.putString("Translation", translation.toString());
 
     // Make the robot move
-    swerve.drive(translation, rotationSpeed, true);
+    swerve.drive(translation, rotationSpeed * finnesse, true);
   }
 
   // Called once the command ends or is interrupted.
