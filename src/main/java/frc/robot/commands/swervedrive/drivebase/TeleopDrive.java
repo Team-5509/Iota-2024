@@ -57,6 +57,23 @@ public class TeleopDrive extends Command {
 
     addRequirements(swerve);
   }
+  public TeleopDrive(SwerveSubsystem swerve, double vX, double vY,
+      double heading, double o) {
+    
+    this.swerve = swerve;
+    rotationSpeed = 0;
+    DoubleSupplier dx = () -> vX;
+    DoubleSupplier dy = () -> vY;
+    DoubleSupplier dTheta = () -> heading;
+    addRequirements(swerve);
+    //DoubleSupplier speedY = () -> vY;
+    DoubleSupplier no = () -> 0;
+    swerve.driveCommand(no,dy,no);
+    this.vX = dx;
+    this.vY = dy;
+    this.heading = dTheta;
+  }
+  
 
   @Override
   public void initialize() {

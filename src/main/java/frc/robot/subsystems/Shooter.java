@@ -74,6 +74,7 @@ public class Shooter extends SubsystemBase {
 
     @Override
     public void periodic() {
+        SmartDashboard.putNumber("Shooter Speed", shooterMotorL.getSelectedSensorVelocity());
         // This method will be called once per scheduler run
         // double shooterVelocityL = shooterMotorL.getSelectedSensorVelocity(0);
         // SmartDashboard.putNumber("Left Shooter velocity", shooterVelocityL);
@@ -113,6 +114,7 @@ public class Shooter extends SubsystemBase {
     public void stop(){
         shooterMotorL.set(ControlMode.PercentOutput, 0);
         shooterMotorR.set(ControlMode.PercentOutput, 0);
+        
     
     }
 }
