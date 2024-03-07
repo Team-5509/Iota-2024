@@ -54,8 +54,8 @@ public class Flipper extends Command {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        max = 0.924;
-        min = 0.527;
+        max = 0.030 - .1;
+        min = 0.441 - .1;
     }
 
     // Called every time the scheduler runs while the command is scheduled.
@@ -77,7 +77,7 @@ public class Flipper extends Command {
             speed = 0;
         }
         //check if method should be called. 
-        if (  m_intakeArm.getFlipperPosition() > max && speed < 0 ||  m_intakeArm.getFlipperPosition() < min && speed > 0 || m_intakeArm.getCurrent() >= 30){
+        if (  m_intakeArm.getFlipperPosition() - .1 > max && speed < 0 ||  m_intakeArm.getFlipperPosition() - .1 < min && speed > 0 || m_intakeArm.getCurrent() >= 30){
            // m_intakeArm.setIdleMode(IdleMode.kCoast);
             m_intakeArm.moveIntakeInBounds(0);
         }
