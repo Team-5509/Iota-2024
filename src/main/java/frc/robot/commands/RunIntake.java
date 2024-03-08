@@ -65,10 +65,10 @@ public class RunIntake extends Command {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        if(RobotContainer.getInstance().getAuxController().getRightBumper()){
+        if(RobotContainer.getInstance().getAuxController().getXButton()){
             m_intake.runIntake(1);
         }
-        else if(RobotContainer.getInstance().getAuxController().getLeftBumper()){
+        else if(RobotContainer.getInstance().getAuxController().getLeftTriggerAxis() > .2){
             m_intake.runIntake(-1);
         }else{
             m_intake.stopIntake();

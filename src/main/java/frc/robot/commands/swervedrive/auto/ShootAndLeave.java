@@ -18,16 +18,18 @@ public class ShootAndLeave extends SequentialCommandGroup{
      
     public ShootAndLeave(SwerveSubsystem drivetrain, Shooter shooter, Intake outTake){
         
-        
+        shooter.shootAuto(.85);
         addCommands(
             //new DriveXFeet(-5.5, drivetrain),
+            
             Commands.race(
-                (new ShootAtPercentSpeed(0.863, shooter)).withTimeout(5),
+                (new ShootAtPercentSpeed(true, 0.863, shooter)).withTimeout(5),//
                 (new WaitCommand(2)).andThen(
                     (new RunIntake(outTake, -1))).withTimeout(2)
                     
             ),
-            (new TeleopDrive(drivetrain, 0, -2 , 0, 0))
+            (new TeleopDrive(drivetrain, .75, -0.2 , 0, 0)).withTimeout(2)
         );
+        //shooter.shootAuto(0);//
     }
 }

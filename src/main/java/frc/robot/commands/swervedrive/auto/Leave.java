@@ -15,9 +15,10 @@ import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 public class Leave extends SequentialCommandGroup{
      
     public Leave(SwerveSubsystem drivetrain, Shooter shooter, Intake outTake){
-        DoubleSupplier speed = () -> -2;
+        DoubleSupplier speed = () -> .75;
         DoubleSupplier no = () -> 0;
-        drivetrain.driveCommand(no,speed,no);
+        DoubleSupplier o2 = () -> -.2;
+        drivetrain.driveCommand(speed,o2,no);
         
         // addCommands(
         //     //new DriveXFeet(-5.5, drivetrain),

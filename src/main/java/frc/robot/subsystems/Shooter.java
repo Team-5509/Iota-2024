@@ -106,11 +106,18 @@ public class Shooter extends SubsystemBase {
     // here. Call these from Commands.
     public void shoot(double percentSpeed){
        //ShooterMotor.set(ControlMode.PercentOutput,percentSpeed);
-        SmartDashboard.putNumber("Shooter Power", percentSpeed);
+        //SmartDashboard.putNumber("Shooter Power", percentSpeed);
         shooterMotorL.set(ControlMode.Velocity,percentSpeed*MAXSHOOTERSPEED);
         shooterMotorR.set(ControlMode.Velocity,percentSpeed*MAXSHOOTERSPEED);
        
     } 
+    public void shootAuto(double percentSpeed){
+       //ShooterMotor.set(ControlMode.PercentOutput,percentSpeed);
+        //SmartDashboard.putNumber("Shooter Power", percentSpeed);
+        shooterMotorL.set(percentSpeed);
+        shooterMotorR.set(percentSpeed);
+       
+    }
     public void stop(){
         shooterMotorL.set(ControlMode.PercentOutput, 0);
         shooterMotorR.set(ControlMode.PercentOutput, 0);
