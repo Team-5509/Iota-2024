@@ -64,8 +64,8 @@ public class Flipper extends Command {
        
         double speed = 0;
 
-        boolean up = RobotContainer.getInstance().getAuxController().getYButton();
-        boolean down = RobotContainer.getInstance().getAuxController().getBButton();
+        boolean up = RobotContainer.getInstance().getdriverXbox().getYButton();
+        boolean down = RobotContainer.getInstance().getdriverXbox().getBButton();
 
         if (up) {
             speed = .1;
