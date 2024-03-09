@@ -11,17 +11,20 @@
 // ROBOTBUILDER TYPE: Robot.
 
 package frc.robot;
-import edu.wpi.first.wpilibj.Filesystem;
+
 import edu.wpi.first.hal.FRCNetComm.tInstances;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.hal.FRCNetComm.tResourceType;
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.hal.HAL;
+import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import java.io.File;
 import java.io.IOException;
 import swervelib.parser.SwerveParser;
+
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the TimedRobot
@@ -29,82 +32,32 @@ import swervelib.parser.SwerveParser;
  * creating this project, you must also update the build.properties file in 
  * the project.
  */
-public class Robot extends TimedRobot
-{
-
-  private static Robot   instance;
-  //private        Command m_autonomousCommand;
-
-  private RobotContainer m_robotContainer;
-
-  private Timer disabledTimer;
-
-  public Robot()
-  {
-    instance = this;
-  }
-
-  public static Robot getInstance()
-  {
-    return instance;
-  }
-
-  /**
-   * This function is run when the robot is first started up and should be used for any initialization code.
-   */
-//   @Override
-//   public void robotInit()
-//   {
-//     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
-//     // autonomous chooser on the dashboard.
-//     m_robotContainer = new RobotContainer();
-
-//     // Create a timer to disable motor brake a few seconds after disable.  This will let the robot stop
-//     // immediately when disabled, but then also let it be pushed more 
-//     disabledTimer = new Timer();
-//   }
-
-
+public class Robot extends TimedRobot {
+    private static Robot instance;
     private Command m_autonomousCommand;
 
-    
-
+    private RobotContainer m_robotContainer;
+    private Timer disabledTimer;
+    public Robot(){
+        instance = this;
+    }
+    public static Robot getInstance(){
+        return instance;
+    }
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
      */
     @Override
     public void robotInit() {
+        CameraServer.startAutomaticCapture();
         // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
         // autonomous chooser on the dashboard.
         m_robotContainer = RobotContainer.getInstance();
         HAL.report(tResourceType.kResourceType_Framework, tInstances.kFramework_RobotBuilder);
         enableLiveWindowInTest(true);
-        // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
-    // autonomous chooser on the dashboard.
-    m_robotContainer = new RobotContainer();
-
-    // Create a timer to disable motor brake a few seconds after disable.  This will let the robot stop
-    // immediately when disabled, but then also let it be pushed more 
-    disabledTimer = new Timer();
+        disabledTimer = new Timer();
     }
-
-
-/**
- * This autonomous runs the autonomous command selected by your {@link RobotContainer} class.
- */
-@Override
-public void autonomousInit()
-{
-  m_robotContainer.setMotorBrake(true);
-  //m_autonomousCommand = m_robotContainer.getAutonomousCommand();
-
-  // schedule the autonomous command (example)
-  if (m_autonomousCommand != null)
-  {
-    m_autonomousCommand.schedule();
-  }
-}
 
     /**
     * This function is called every robot packet, no matter the mode. Use this for items like
@@ -123,78 +76,37 @@ public void autonomousInit()
     }
 
 
-/**
-
-
-@Override
-public void teleopInit()
-{
-  // This makes sure that the autonomous stops running when
-  // teleop starts running. If you want the autonomous to
-  // continue until interrupted by another command, remove
-  // this line or comment it out.
-  if (m_autonomousCommand != null)
-  {
-    m_autonomousCommand.cancel();
-  }
-
     /**
     * This function is called once each time the robot enters Disabled mode.
     */
     @Override
     public void disabledInit() {
+        m_robotContainer.setMotorBrake(true);
+        disabledTimer.reset();
+        disabledTimer.start();
     }
-    
-
-  /**
-   * This function is called periodically during operator control.
-   */
-  
-
-//   @Override
-//   public void testInit()
-//   {
-//     // Cancels all running commands at the start of test mode.
-//     CommandScheduler.getInstance().cancelAll();
-//     try
-//     {
-//       new SwerveParser(new File(Filesystem.getDeployDirectory(), "swerve"));
-//     } catch (IOException e)
-//     {
-//       throw new RuntimeException(e);
-//     }
-//   }
 
     @Override
     public void disabledPeriodic() {
+        if(disabledTimer.hasElapsed(Constants.DrivebaseConstants.WHEEL_LOCK_TIME)){
+            m_robotContainer.setMotorBrake(false);
+            disabledTimer.stop();
+        }
     }
-
-
-/**
- * This function is called periodically during test mode.
- */
-
-
-/**
- * This function is called once when the robot is first started up.
- */
-@Override
-public void simulationInit()
-{
-}
-
-/**
- * This function is called periodically whilst in simulation.
- */
-@Override
-public void simulationPeriodic()
-{
-}
 
     /**
     * This autonomous runs the autonomous command selected by your {@link RobotContainer} class.
     */
-    
+    @Override
+    public void autonomousInit() {
+        m_robotContainer.setMotorBrake(true);
+        m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+
+        // schedule the autonomous command (example)
+        if (m_autonomousCommand != null) {
+            m_autonomousCommand.schedule();
+        }
+    }
 
     /**
     * This function is called periodically during autonomous.
@@ -212,6 +124,8 @@ public void simulationPeriodic()
         if (m_autonomousCommand != null) {
             m_autonomousCommand.cancel();
         }
+        m_robotContainer.setDriveMode();
+        m_robotContainer.setMotorBrake(true);
     }
 
     /**
@@ -225,15 +139,11 @@ public void simulationPeriodic()
     public void testInit() {
         // Cancels all running commands at the start of test mode.
         CommandScheduler.getInstance().cancelAll();
-        // Cancels all running commands at the start of test mode.
-    CommandScheduler.getInstance().cancelAll();
-    try
-    {
-      new SwerveParser(new File(Filesystem.getDeployDirectory(), "swerve"));
-    } catch (IOException e)
-    {
-      throw new RuntimeException(e);
-    }
+        try{
+            new SwerveParser(new File(Filesystem.getDeployDirectory(), "swerve"));
+        }catch (IOException e){
+            throw new RuntimeException(e);
+        }
     }
 
     /**

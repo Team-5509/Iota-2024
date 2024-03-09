@@ -85,6 +85,7 @@ public class SwerveSubsystem extends SubsystemBase
     swerveDrive.setCosineCompensator(SwerveDriveTelemetry.isSimulation); // Disables cosine compensation for simulations since it causes discrepancies not seen in real life.
     setupPathPlanner();
   }
+  
 
   /**
    * Construct the swerve drive.
