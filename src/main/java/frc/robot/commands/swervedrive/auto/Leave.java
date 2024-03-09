@@ -8,8 +8,8 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.RunIntake;
 import frc.robot.commands.ShootAtPercentSpeed;
+import frc.robot.commands.swervedrive.drivebase.TeleopDrive;
 import frc.robot.subsystems.*;
-import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 
 public class Leave extends SequentialCommandGroup{
@@ -18,7 +18,7 @@ public class Leave extends SequentialCommandGroup{
         DoubleSupplier speed = () -> .75;
         DoubleSupplier no = () -> 0;
         DoubleSupplier o2 = () -> -.2;
-        drivetrain.driveCommand(speed,o2,no);
+        (new TeleopDrive(drivetrain, .75, -0.2 , 0, 0)).withTimeout(2);
         
         // addCommands(
         //     //new DriveXFeet(-5.5, drivetrain),

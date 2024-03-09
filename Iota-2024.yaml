@@ -35,10 +35,10 @@ Children:
       Default Command: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
         name: Default Command, type: Command, validators: null, value: RunIntake}
       Constants: !!robotbuilder.data.properties.ConstantsProperty
-        default: &id001 []
+        default: []
         name: Constants
         validators: null
-        value: *id001
+        value: []
     Base: Subsystem
     Name: Intake
   - Children: []
@@ -59,6 +59,24 @@ Children:
         value: []
     Base: Subsystem
     Name: IntakeArm
+  - Children: []
+    Properties:
+      Send to SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: false,
+        name: Send to SmartDashboard, validators: null, value: false}
+      Default command parameters: !!robotbuilder.data.properties.ParametersProperty
+        default: []
+        name: Default command parameters
+        validators: null
+        value: []
+      Default Command: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
+        name: Default Command, type: Command, validators: null, value: RunClimber}
+      Constants: !!robotbuilder.data.properties.ConstantsProperty
+        default: []
+        name: Constants
+        validators: null
+        value: []
+    Base: Subsystem
+    Name: Climber
   Properties: {}
   Base: Subsystems
   Name: Subsystems
@@ -66,20 +84,20 @@ Children:
   - Children: []
     Properties:
       Number: !!robotbuilder.data.properties.ChoicesProperty
-        choices: &id002 ['0', '1', '2', '3', '4', '5']
+        choices: &id001 ['0', '1', '2', '3', '4', '5']
         default: 1
         name: Number
-        validators: &id003 [Joystick]
+        validators: &id002 [Joystick]
         value: '0'
     Base: Xbox Controller
     Name: driverXbox
   - Children: []
     Properties:
       Number: !!robotbuilder.data.properties.ChoicesProperty
-        choices: *id002
+        choices: *id001
         default: 1
         name: Number
-        validators: *id003
+        validators: *id002
         value: '1'
     Base: Xbox Controller
     Name: AuxController
@@ -103,10 +121,10 @@ Children:
       Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
         name: Requires, type: Subsystem, validators: null, value: Shooter}
       Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
-        default: &id004 []
+        default: []
         name: Parameter presets
         validators: null
-        value: *id004
+        value: []
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: false}
     Base: Command
@@ -123,12 +141,34 @@ Children:
       Run When Disabled: !!robotbuilder.data.properties.BooleanProperty {default: false,
         name: Run When Disabled, validators: null, value: false}
       Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
-        name: Requires, type: Subsystem, validators: null, value: Intake}
+        name: Requires, type: Subsystem, validators: null, value: Climber}
       Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
-        default: &id005 []
+        default: &id003 []
         name: Parameter presets
         validators: null
-        value: *id005
+        value: *id003
+      Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
+        name: Button on SmartDashboard, validators: null, value: true}
+    Base: Command
+    Name: RunClimber
+  - Children: []
+    Properties:
+      Autonomous Selection: !!robotbuilder.data.properties.BooleanProperty {default: false,
+        name: Autonomous Selection, validators: null, value: false}
+      Parameters: !!robotbuilder.data.properties.ParametersProperty
+        default: []
+        name: Parameters
+        validators: null
+        value: []
+      Run When Disabled: !!robotbuilder.data.properties.BooleanProperty {default: false,
+        name: Run When Disabled, validators: null, value: false}
+      Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
+        name: Requires, type: Subsystem, validators: null, value: Intake}
+      Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
+        default: []
+        name: Parameter presets
+        validators: null
+        value: []
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: true}
     Base: Command
@@ -147,10 +187,10 @@ Children:
       Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
         name: Requires, type: Subsystem, validators: null, value: IntakeArm}
       Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
-        default: &id006 []
+        default: []
         name: Parameter presets
         validators: null
-        value: *id006
+        value: []
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: true}
     Base: Command
@@ -176,9 +216,9 @@ Properties:
       Number, validators: null, value: 5509}
   Export Subsystems: !!robotbuilder.data.properties.BooleanProperty {default: true,
     name: Export Subsystems, validators: null, value: true}
-  Wiring file location: !!robotbuilder.data.properties.FileProperty {default: 'C:\Users\Kanar\',
+  Wiring file location: !!robotbuilder.data.properties.FileProperty {default: 'C:\Users\Robot\',
     extension: null, folder: true, name: Wiring file location, validators: null, value: 'C:\Users\Robotics'}
-  Export Directory: !!robotbuilder.data.properties.FileProperty {default: 'C:\Users\Kanar\FRCProjects',
+  Export Directory: !!robotbuilder.data.properties.FileProperty {default: 'C:\Users\Robot\FRCProjects',
     extension: null, folder: true, name: Export Directory, validators: null, value: ..\}
   Autonomous Command: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
     name: Autonomous Command, type: Command, validators: null, value: None}
