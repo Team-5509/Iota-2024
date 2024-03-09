@@ -23,14 +23,14 @@ public class ShootAndLeave extends SequentialCommandGroup{
         //shooter.shootAuto(.85);
         addCommands(
             //new DriveXFeet(-5.5, drivetrain),
-            
+            (new AutoIntake(1, outTake)).withTimeout(1),
             Commands.race(
                 (new AutoShoot(1, shooter)),//
                 (new WaitCommand(1)).andThen(
                     (new AutoIntake(-1, outTake)))
                     
             ).withTimeout(5),
-            (new TeleopDrive(drivetrain, .75, -0.2 , 0, 0)).withTimeout(1.7),
+            (new TeleopDrive(drivetrain, .75, -0.2 , 0, 0)).withTimeout(1),
             Commands.race((new AutoShoot(0, shooter)),//
                 (new AutoIntake(0, outTake))
                 ).withTimeout(1)
