@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
+import frc.robot.commands.AutoShoot;
 import frc.robot.commands.RunIntake;
 import frc.robot.commands.ShootAtPercentSpeed;
 import frc.robot.commands.swervedrive.drivebase.TeleopDrive;
@@ -23,7 +24,7 @@ public class ShootAndLeave extends SequentialCommandGroup{
             //new DriveXFeet(-5.5, drivetrain),
             
             Commands.race(
-                (new ShootAtPercentSpeed(true, 0.863, shooter)).withTimeout(5),//
+                (new AutoShoot(1, shooter)).withTimeout(5),//
                 (new WaitCommand(2)).andThen(
                     (new RunIntake(outTake, -1))).withTimeout(2)
                     
