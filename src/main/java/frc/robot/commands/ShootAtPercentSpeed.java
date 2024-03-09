@@ -76,7 +76,7 @@ public class ShootAtPercentSpeed extends Command {
             factor = 0;
         }
         RobotContainer.getInstance().getAuxController().setRumble(RumbleType.kBothRumble, factor);
-        if(RobotContainer.getInstance().getAuxController().getRightTriggerAxis() > .1){
+        if(RobotContainer.getInstance().getAuxController().getRightTriggerAxis() > .2){
             m_shooter.shoot(1);
         }else{
             m_shooter.stop();

@@ -30,6 +30,6 @@ public class ShootAndLeave extends SequentialCommandGroup{
             ),
             (new TeleopDrive(drivetrain, .75, -0.2 , 0, 0)).withTimeout(2)
         );
-        //shooter.shootAuto(0);//
+        shooter.shootAuto(0);//
     }
 }

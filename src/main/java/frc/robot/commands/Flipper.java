@@ -69,10 +69,10 @@ public class Flipper extends Command {
         boolean down = temp.getPOV() == 180 || temp.getPOV() == 135 || temp.getPOV() == 225;
 
         if (up) {
-            speed = .3;
+            speed = .2;
         }
         if (down) {
-            speed = -.3;
+            speed = -.2;
         }
         if(!(up || down)){
             speed = 0;
