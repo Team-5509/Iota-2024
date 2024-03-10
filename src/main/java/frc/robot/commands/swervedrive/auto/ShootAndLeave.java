@@ -30,7 +30,7 @@ public class ShootAndLeave extends SequentialCommandGroup{
                     (new AutoIntake(-1, outTake)))
                     
             ).withTimeout(5),
-            (new TeleopDrive(drivetrain, .75, -0.2 , 0, 0)).withTimeout(1),
+            (new TeleopDrive(drivetrain, .75, 0 , 0, 0)).withTimeout(1),
             Commands.race((new AutoShoot(0, shooter)),//
                 (new AutoIntake(0, outTake))
                 ).withTimeout(1)
