@@ -95,14 +95,14 @@ public class TeleopDrive extends Command {
     
     // Limit velocity to prevent tippy
     Translation2d translation = SwerveController.getTranslation2d(desiredSpeeds);
-    translation = SwerveMath.limitVelocity(translation, swerve.getFieldVelocity(), swerve.getPose(),
-        Constants.LOOP_TIME, Constants.ROBOT_MASS, List.of(Constants.CHASSIS),
-        swerve.getSwerveDriveConfiguration());
+    // translation = SwerveMath.limitVelocity(translation, swerve.getFieldVelocity(), swerve.getPose(),
+    //     Constants.LOOP_TIME, Constants.ROBOT_MASS, List.of(Constants.CHASSIS),
+    //     swerve.getSwerveDriveConfiguration());
     SmartDashboard.putNumber("LimitedTranslation", translation.getX());
     SmartDashboard.putString("Translation", translation.toString());
 
     // Make the robot move
-    swerve.drive(translation, rotationSpeed, true);
+    swerve.drive(translation, rotationSpeed, false);
   }
 
   // Called once the command ends or is interrupted.
