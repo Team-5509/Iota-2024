@@ -10,6 +10,7 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import java.util.List;
 import java.util.function.DoubleSupplier;
@@ -83,18 +84,22 @@ public class TeleopDrive extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-
+    double finnese = (RobotContainer.getInstance().getdriverXbox().getRightTriggerAxis() * .8 - 1) * -1;
+    DoubleSupplier fVX = () -> vX.getAsDouble() * finnese;
+    DoubleSupplier fVY = () -> vY.getAsDouble() * finnese;
     if (Math.abs(heading.getAsDouble()) > swerve.getSwerveController().config.angleJoyStickRadiusDeadband) {
       rotationSpeed = heading.getAsDouble()*swerve.getSwerveController().config.maxAngularVelocity;
     }
     else {
       rotationSpeed = 0;
     }
-
-    ChassisSpeeds desiredSpeeds = swerve.getTargetSpeeds(vX.getAsDouble(), vY.getAsDouble(), new Rotation2d(rotationSpeed));
+    
+    //double finnese = (RobotContainer.getInstance().getdriverXbox().getRightTriggerAxis() * .8 - 1) * -1;
+    ChassisSpeeds desiredSpeeds = swerve.getTargetSpeeds(fVX.getAsDouble(), fVY.getAsDouble(), new Rotation2d(rotationSpeed));
     
     // Limit velocity to prevent tippy
     Translation2d translation = SwerveController.getTranslation2d(desiredSpeeds);
+    
     // translation = SwerveMath.limitVelocity(translation, swerve.getFieldVelocity(), swerve.getPose(),
     //     Constants.LOOP_TIME, Constants.ROBOT_MASS, List.of(Constants.CHASSIS),
     //     swerve.getSwerveDriveConfiguration());
@@ -102,7 +107,7 @@ public class TeleopDrive extends Command {
     SmartDashboard.putString("Translation", translation.toString());
 
     // Make the robot move
-    swerve.drive(translation, rotationSpeed, false);
+    swerve.drive(translation, rotationSpeed * finnese, false);
   }
 
   // Called once the command ends or is interrupted.
