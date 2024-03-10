@@ -110,6 +110,7 @@ private final XboxController driverXbox = new XboxController(0);
     m_chooser.addOption("Leave", new Leave(drivebase, m_shooter, m_intake));
     m_chooser.addOption("Nothing", new WaitCommand(2));
     m_chooser.addOption("Shoot and leave", new ShootAndLeave(drivebase, m_shooter, m_intake));
+    m_chooser.addOption("Angled Shoot + Leave", new ShootAndLeave(drivebase, m_shooter, m_intake));
     SmartDashboard.putData("Auto Mode", m_chooser);
   }
   
