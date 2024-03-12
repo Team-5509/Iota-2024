@@ -64,15 +64,10 @@ private boolean detectNotes = true;
     @Override
     public void execute() {
         lightMode = (int)SmartDashboard.getNumber("Light Mode", lightMode);
-        detectNotes = SmartDashboard.getBoolean("Lights Follow Load Status", detectNotes);
+        detectNotes = SmartDashboard.getBoolean("Lights Show Note Status", detectNotes);
         SmartDashboard.putBoolean("Note Detected", m_lightSubsystem.isNoteInSlot());
-        if (detectNotes) {
-            if (m_lightSubsystem.isNoteInSlot()) {
-                if (lightMode == 0) {m_lightSubsystem.runLights(0.61);} //Red
-                else if (lightMode == 1) {m_lightSubsystem.runLights(0.87);} //Blue
-                else {m_lightSubsystem.runLights(0.91);} //Error color is purple because I like purple. Suck it up.
-            }
-            else {m_lightSubsystem.runLights(0.99);}
+        if (detectNotes && !m_lightSubsystem.isNoteInSlot()) {
+            m_lightSubsystem.runLights(0.99);
         }
         else {
             if (lightMode == 0) {m_lightSubsystem.runLights(0.61);} //Red
