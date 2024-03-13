@@ -16,8 +16,11 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
+import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.networktables.StructArrayPublisher;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -47,6 +50,9 @@ public class SwerveSubsystem extends SubsystemBase
    * Maximum speed of the robot in meters per second, used to limit acceleration.
    */
   public        double      maximumSpeed = Units.feetToMeters(14.5);
+
+  // Network tables publisher for advantage scope visualization
+  private final StructArrayPublisher<SwerveModuleState> publisher;
 
   /**
    * Initialize {@link SwerveDrive} with the directory provided.
@@ -84,6 +90,9 @@ public class SwerveSubsystem extends SubsystemBase
 
     swerveDrive.setCosineCompensator(SwerveDriveTelemetry.isSimulation); // Disables cosine compensation for simulations since it causes discrepancies not seen in real life.
     setupPathPlanner();
+
+    publisher = NetworkTableInstance.getDefault()
+      .getStructArrayTopic("/SwerveStates", SwerveModuleState.struct).publish();
   }
   
 
@@ -96,6 +105,9 @@ public class SwerveSubsystem extends SubsystemBase
   public SwerveSubsystem(SwerveDriveConfiguration driveCfg, SwerveControllerConfiguration controllerCfg)
   {
     swerveDrive = new SwerveDrive(driveCfg, controllerCfg, maximumSpeed);
+
+    publisher = NetworkTableInstance.getDefault()
+      .getStructArrayTopic("/SwerveStates", SwerveModuleState.struct).publish();
   }
 
   /**
@@ -304,6 +316,7 @@ public class SwerveSubsystem extends SubsystemBase
   @Override
   public void periodic()
   {
+    publisher.set(swerveDrive.getStates());
   }
 
   @Override
