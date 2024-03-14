@@ -80,7 +80,8 @@ public class TeleopDrive extends Command {
   public void initialize() {
     
   }
-
+  private boolean pressed = false;
+  private boolean previousPressed = false;
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
@@ -88,14 +89,18 @@ public class TeleopDrive extends Command {
     DoubleSupplier fVX = () -> vX.getAsDouble() * finnese;
     DoubleSupplier fVY = () -> vY.getAsDouble() * finnese;
     if (Math.abs(heading.getAsDouble()) > swerve.getSwerveController().config.angleJoyStickRadiusDeadband) {
-      rotationSpeed = heading.getAsDouble()*swerve.getSwerveController().config.maxAngularVelocity;
+      rotationSpeed = finnese * heading.getAsDouble()*swerve.getSwerveController().config.maxAngularVelocity;
     }
     else {
       rotationSpeed = 0;
     }
-    
+    boolean firstBool = RobotContainer.getInstance().getdriverXbox().getLeftBumper();
+    if(!firstBool && previousPressed){
+      pressed = !pressed;
+    }
+    previousPressed = firstBool;
     //double finnese = (RobotContainer.getInstance().getdriverXbox().getRightTriggerAxis() * .8 - 1) * -1;
-    ChassisSpeeds desiredSpeeds = swerve.getTargetSpeeds(fVX.getAsDouble(), fVY.getAsDouble(), new Rotation2d(rotationSpeed));
+    ChassisSpeeds desiredSpeeds = swerve.getTargetSpeeds(fVX.getAsDouble(), fVY.getAsDouble() , new Rotation2d(rotationSpeed));
     
     // Limit velocity to prevent tippy
     Translation2d translation = SwerveController.getTranslation2d(desiredSpeeds);
@@ -107,7 +112,11 @@ public class TeleopDrive extends Command {
     SmartDashboard.putString("Translation", translation.toString());
 
     // Make the robot move
-    swerve.drive(translation, rotationSpeed * finnese, false);
+    if(!pressed){
+      swerve.drive(translation, rotationSpeed * finnese, false);
+    }else{
+      swerve.driveFieldOriented(desiredSpeeds);
+    }
   }
 
   // Called once the command ends or is interrupted.
