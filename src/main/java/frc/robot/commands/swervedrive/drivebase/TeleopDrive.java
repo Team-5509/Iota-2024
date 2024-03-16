@@ -69,7 +69,7 @@ public class TeleopDrive extends Command {
     addRequirements(swerve);
     //DoubleSupplier speedY = () -> vY;
     DoubleSupplier no = () -> 0;
-    swerve.driveCommand(no,dy,no);
+    swerve.drive(new ChassisSpeeds(vX, vY, heading));//no,dy,no);
     this.vX = dx;
     this.vY = dy;
     this.heading = dTheta;
