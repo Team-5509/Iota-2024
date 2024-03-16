@@ -57,7 +57,7 @@ public class ShootAmp extends Command {
     @Override
     public void execute() {
         
-        m_shooter.shoot(.5);
+        m_shooter.shoot(.15);
         
     }
 
