@@ -82,9 +82,11 @@ public class Flipper extends Command {
            // m_intakeArm.setIdleMode(IdleMode.kCoast);
             m_intakeArm.moveIntakeInBounds(0);
         }
+        else{
+            m_intakeArm.moveIntakeInBounds(speed);
+        }
         // check min and max dont hardcode max
         //m_intakeArm.setIdleMode(IdleMode.kBrake);
-        m_intakeArm.moveIntakeInBounds(speed);
     }
 
     // Called once the command ends or is interrupted.
