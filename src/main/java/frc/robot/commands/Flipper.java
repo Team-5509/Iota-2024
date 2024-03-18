@@ -80,14 +80,14 @@ public class Flipper extends Command {
             speed = 0;
         }
         //check if method should be called. 
-        //TODO Switch greater and less thans maybe
-        if (  m_intakeArm.getFlipperPosition() > maxFlipperPosition && speed < 0 ||  m_intakeArm.getFlipperPosition() < minFlipperPosition && speed > 0 ){
+        
+        if (  m_intakeArm.getFlipperPosition() > maxFlipperPosition && speed > 0 ||  m_intakeArm.getFlipperPosition() < minFlipperPosition && speed < 0 ){
            // m_intakeArm.setIdleMode(IdleMode.kCoast);
             m_intakeArm.moveIntakeInBounds(0);
         }
-        //else{
+        else{
             m_intakeArm.moveIntakeInBounds(speed);
-        //}
+        }
         // check min and max dont hardcode max
         //m_intakeArm.setIdleMode(IdleMode.kBrake);
     }
