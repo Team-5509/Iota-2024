@@ -85,7 +85,7 @@ public class TeleopDrive extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double finnese = (RobotContainer.getInstance().getdriverXbox().getRightTriggerAxis() * .6 - 1) * -1;
+    double finnese = (RobotContainer.getInstance().getdriverXbox().getRightTriggerAxis() * .4 - 1) * -1;
     DoubleSupplier fVX = () -> vX.getAsDouble() * finnese;
     DoubleSupplier fVY = () -> vY.getAsDouble() * finnese;
     if (Math.abs(heading.getAsDouble()) > swerve.getSwerveController().config.angleJoyStickRadiusDeadband) {
@@ -113,9 +113,9 @@ public class TeleopDrive extends Command {
 
     // Make the robot move
     if(!pressed){
-      swerve.drive(translation, rotationSpeed * finnese, false);
+      swerve.drive(translation, rotationSpeed * .5 * finnese, false);
     }else{
-      swerve.driveFieldOriented(desiredSpeeds);
+      //swerve.driveFieldOriented(desiredSpeeds);
     }
   }
 

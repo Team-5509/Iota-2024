@@ -64,7 +64,7 @@ public class IntakeArm extends SubsystemBase {
     public void periodic() {
         // This method will be called once per scheduler run
         
-        SmartDashboard.putNumber("Duty Encoder", getFlipperPosition());
+        SmartDashboard.putNumber("Duty Encoder", getFlipperPosition() - .1);
         SmartDashboard.putNumber("Arm Curent", flipper.getOutputCurrent());
 
     }
@@ -90,7 +90,7 @@ public class IntakeArm extends SubsystemBase {
     }
 
     public double getFlipperPosition(){
-        return flipper.getAbsoluteEncoder(Type.kDutyCycle).getPosition();
+        return flipper.getAbsoluteEncoder(Type.kDutyCycle).getPosition() - .1;
     }
     public double getCurrent(){
         return flipper.getOutputCurrent();
