@@ -71,10 +71,10 @@ public class Flipper extends Command {
         boolean down = pov == 180 || pov == 135 || pov == 225;
 
         if (up) {
-            speed = .2;
+            speed = .3;
         }
         if (down) {
-            speed = -.2;
+            speed = -.3;
         }
         if(!(up || down)){
             speed = 0;
@@ -83,11 +83,12 @@ public class Flipper extends Command {
         
         if (  m_intakeArm.getFlipperPosition() > maxFlipperPosition && speed > 0 ||  m_intakeArm.getFlipperPosition() < minFlipperPosition && speed < 0 ){
            // m_intakeArm.setIdleMode(IdleMode.kCoast);
-            m_intakeArm.moveIntakeInBounds(0);
+           // m_intakeArm.moveIntakeInBounds(0);
         }
-        else{
+        //else{
             m_intakeArm.moveIntakeInBounds(speed);
-        }
+        //}
+
         // check min and max dont hardcode max
         //m_intakeArm.setIdleMode(IdleMode.kBrake);
     }

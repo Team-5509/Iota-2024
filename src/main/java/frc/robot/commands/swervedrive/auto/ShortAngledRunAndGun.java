@@ -19,9 +19,9 @@ import frc.robot.commands.swervedrive.drivebase.TeleopDrive;
 import frc.robot.subsystems.*;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 
-public class AngledShootAndLeave extends SequentialCommandGroup{
+public class ShortAngledRunAndGun extends SequentialCommandGroup{
      
-    public AngledShootAndLeave(SwerveSubsystem drivetrain, Shooter shooter, Intake outTake){
+    public ShortAngledRunAndGun(SwerveSubsystem drivetrain, Shooter shooter, Intake outTake){
         Optional<Alliance> ally = DriverStation.getAlliance();
         //shooter.shootAuto(.85);
         if(ally.isPresent()){
@@ -35,7 +35,7 @@ public class AngledShootAndLeave extends SequentialCommandGroup{
                             (new AutoIntake(-1, outTake)))
                             
                     ).withTimeout(5),
-                    (new TeleopDrive(drivetrain, .8, .2 , 0, 0)).withTimeout(1.5),
+                    (new TeleopDrive(drivetrain, .2, .8 , 0, 0)).withTimeout(1.5),
                     Commands.race((new AutoShoot(0, shooter)),//
                         (new AutoIntake(0, outTake))
                         ).withTimeout(1)
@@ -51,7 +51,7 @@ public class AngledShootAndLeave extends SequentialCommandGroup{
                             (new AutoIntake(-1, outTake)))
                             
                     ).withTimeout(5),
-                    (new TeleopDrive(drivetrain, .8, -.2 , 0, 0)).withTimeout(1.5),
+                    (new TeleopDrive(drivetrain, .2, -.8 , 0, 0)).withTimeout(1.5),
                     Commands.race((new AutoShoot(0, shooter)),//
                         (new AutoIntake(0, outTake))
                         ).withTimeout(1)
@@ -70,7 +70,7 @@ public class AngledShootAndLeave extends SequentialCommandGroup{
                     (new AutoIntake(-1, outTake)))
                             
             ).withTimeout(5),
-            (new TeleopDrive(drivetrain, .8, .2 , 0, 0)).withTimeout(1.5),
+            (new TeleopDrive(drivetrain, .2, .8 , 0, 0)).withTimeout(1.5),
             Commands.race((new AutoShoot(0, shooter)),//
                 (new AutoIntake(0, outTake))
                 ).withTimeout(1)
