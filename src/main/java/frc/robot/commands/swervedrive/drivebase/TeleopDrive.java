@@ -85,7 +85,7 @@ public class TeleopDrive extends Command {
     addRequirements(swerve);
     //DoubleSupplier speedY = () -> vY;
     DoubleSupplier no = () -> 0;
-    swerve.drive(new ChassisSpeeds(vX, vY, heading));//no,dy,no);
+    swerve.driveCommand(dx,dy,dTheta);
     this.vX = dx;
     this.vY = dy;
     this.heading = dTheta;
@@ -128,11 +128,11 @@ public class TeleopDrive extends Command {
     SmartDashboard.putString("Translation", translation.toString());
 
     // Make the robot move
-    if(!pressed){
+    //if(!pressed){
       swerve.drive(translation, rotationSpeed * .5 * finnese, false);
-    }else{
+    //}else{
       //swerve.driveFieldOriented(desiredSpeeds);
-    }
+    //}
   }
 
   // Called once the command ends or is interrupted.

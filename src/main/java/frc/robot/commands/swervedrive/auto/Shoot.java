@@ -16,9 +16,9 @@ import frc.robot.subsystems.*;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 
-public class ShootAndLeave extends SequentialCommandGroup{
+public class Shoot extends SequentialCommandGroup{
      
-    public ShootAndLeave(SwerveSubsystem drivetrain, Shooter shooter, Intake outTake){
+    public Shoot(Shooter shooter, Intake outTake){
         
         //shooter.shootAuto(.85);
         addCommands(
@@ -30,7 +30,7 @@ public class ShootAndLeave extends SequentialCommandGroup{
                     (new AutoIntake(-1, outTake)))
                     
             ).withTimeout(5),
-            (new TeleopDrive(drivetrain, .75, 0 , 0, true)).withTimeout(1),
+            //(new TeleopDrive(drivetrain, .75, 0 , 0, true)).withTimeout(1),
             Commands.race((new AutoShoot(0, shooter)),//
                 (new AutoIntake(0, outTake))
                 ).withTimeout(1)

@@ -15,6 +15,7 @@ package frc.robot;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.swervedrive.auto.AngledShootAndLeave;
 import frc.robot.commands.swervedrive.auto.Leave;
+import frc.robot.commands.swervedrive.auto.Shoot;
 import frc.robot.commands.swervedrive.auto.ShootAndLeave;
 import frc.robot.commands.swervedrive.auto.ShortAngledRunAndGun;
 import frc.robot.commands.swervedrive.drivebase.TeleopDrive;
@@ -114,9 +115,10 @@ private final XboxController driverXbox = new XboxController(0);
     m_chooser.addOption("Leave", new Leave(drivebase, m_shooter, m_intake));
     m_chooser.addOption("Nothing", new WaitCommand(2));
     //m_chooser.addOption("Shoot and leave", new ShootAndLeave(drivebase, m_shooter, m_intake));
-    m_chooser.addOption("Short Angled Shoot + Leave", new ShortAngledRunAndGun(drivebase, m_shooter, m_intake));
-    m_chooser.addOption("Angled Shoot + Leave", new AngledShootAndLeave(drivebase, m_shooter, m_intake));
-    m_chooser.setDefaultOption("Shoot and leave", new ShootAndLeave(drivebase, m_shooter, m_intake));
+    //m_chooser.addOption("Short Angled Shoot + Leave", new ShortAngledRunAndGun(drivebase, m_shooter, m_intake));
+    //m_chooser.addOption("Angled Shoot + Leave", new AngledShootAndLeave(drivebase, m_shooter, m_intake));
+    m_chooser.addOption("Shoot and leave", new ShootAndLeave(drivebase, m_shooter, m_intake));
+    m_chooser.addOption("Shoot", new Shoot(m_shooter, m_intake));
     SmartDashboard.putData("Auto Mode", m_chooser);
   }
   

@@ -35,7 +35,7 @@ public class AngledShootAndLeave extends SequentialCommandGroup{
                             (new AutoIntake(-1, outTake)))
                             
                     ).withTimeout(5),
-                    (new TeleopDrive(drivetrain, .8, .2 , 0, 0)).withTimeout(1.5),
+                    (new TeleopDrive(drivetrain, .8, 0 , 135, true)).withTimeout(1),
                     Commands.race((new AutoShoot(0, shooter)),//
                         (new AutoIntake(0, outTake))
                         ).withTimeout(1)
@@ -51,7 +51,7 @@ public class AngledShootAndLeave extends SequentialCommandGroup{
                             (new AutoIntake(-1, outTake)))
                             
                     ).withTimeout(5),
-                    (new TeleopDrive(drivetrain, .8, -.2 , 0, 0)).withTimeout(1.5),
+                    (new TeleopDrive(drivetrain, .8, .8 , 0, true)).withTimeout(1.5),
                     Commands.race((new AutoShoot(0, shooter)),//
                         (new AutoIntake(0, outTake))
                         ).withTimeout(1)
@@ -70,7 +70,7 @@ public class AngledShootAndLeave extends SequentialCommandGroup{
                     (new AutoIntake(-1, outTake)))
                             
             ).withTimeout(5),
-            (new TeleopDrive(drivetrain, .8, .2 , 0, 0)).withTimeout(1.5),
+            (new TeleopDrive(drivetrain, .8, -.8 , 0, true)).withTimeout(1.5),
             Commands.race((new AutoShoot(0, shooter)),//
                 (new AutoIntake(0, outTake))
                 ).withTimeout(1)
