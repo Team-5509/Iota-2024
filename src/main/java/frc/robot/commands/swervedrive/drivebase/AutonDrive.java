@@ -1,6 +1,4 @@
-package frc.robot.commands.swervedrive.drivebase;
 
-public class AutonDrive {
     // Copyright (c) FIRST and other WPILib contributors.
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
@@ -75,13 +73,8 @@ public class AutonDrive extends Command {
     //double finnese = (RobotContainer.getInstance().getdriverXbox().getRightTriggerAxis() * .4 - 1) * -1;
     DoubleSupplier fVX = () -> vX.getAsDouble();
     DoubleSupplier fVY = () -> vY.getAsDouble();
-    if (Math.abs(heading.getAsDouble()) > swerve.getSwerveController().config.angleJoyStickRadiusDeadband) {
-      rotationSpeed = heading.getAsDouble()*swerve.getSwerveController().config.maxAngularVelocity;
-    }
-    else {
-      rotationSpeed = 0;
-    }
     
+    rotationSpeed = heading.getAsDouble()*swerve.getSwerveController().config.maxAngularVelocity;
     
     //double finnese = (RobotContainer.getInstance().getdriverXbox().getRightTriggerAxis() * .8 - 1) * -1;
     ChassisSpeeds desiredSpeeds = swerve.getTargetSpeeds(fVX.getAsDouble(), fVY.getAsDouble() , new Rotation2d(rotationSpeed));
