@@ -1,4 +1,7 @@
-// Copyright (c) FIRST and other WPILib contributors.
+package frc.robot.commands.swervedrive.drivebase;
+
+public class AutonDrive {
+    // Copyright (c) FIRST and other WPILib contributors.
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
@@ -20,7 +23,7 @@ import swervelib.math.SwerveMath;
 /**
  * An example command that uses an example subsystem.
  */
-public class TeleopDrive extends Command {
+public class AutonDrive extends Command {
 
   private final SwerveSubsystem swerve;
   private final DoubleSupplier vX, vY, heading;
@@ -47,7 +50,7 @@ public class TeleopDrive extends Command {
    *                station glass.
    * @param heading DoubleSupplier that supplies the robot's heading angle.
    */
-  public TeleopDrive(SwerveSubsystem swerve, DoubleSupplier vX, DoubleSupplier vY,
+  public AutonDrive(SwerveSubsystem swerve, DoubleSupplier vX, DoubleSupplier vY,
       DoubleSupplier heading) {
     this.swerve = swerve;
     this.vX = vX;
@@ -58,63 +61,28 @@ public class TeleopDrive extends Command {
 
     addRequirements(swerve);
   }
-  public TeleopDrive(SwerveSubsystem swerve, double vX, double vY,
-      double heading, double o) {
-    
-    this.swerve = swerve;
-    rotationSpeed = 0;
-    DoubleSupplier dx = () -> vX;
-    DoubleSupplier dy = () -> vY;
-    DoubleSupplier dTheta = () -> heading;
-    addRequirements(swerve);
-    //DoubleSupplier speedY = () -> vY;
-    DoubleSupplier no = () -> 0;
-    //swerve.drive(new ChassisSpeeds(vX, vY, heading));//no,dy,no);
-    this.vX = dx;
-    this.vY = dy;
-    this.heading = dTheta;
-  }
-  public TeleopDrive(SwerveSubsystem swerve, double vX, double vY,
-      double heading, boolean o) {
-    
-    this.swerve = swerve;
-    rotationSpeed = 0;
-    DoubleSupplier dx = () -> vX;
-    DoubleSupplier dy = () -> vY;
-    DoubleSupplier dTheta = () -> heading;
-    addRequirements(swerve);
-    //DoubleSupplier speedY = () -> vY;
-    DoubleSupplier no = () -> 0;
-    //swerve.driveCommand(dx,dy,dTheta);
-    this.vX = dx;
-    this.vY = dy;
-    this.heading = dTheta;
-  }
+  
   
 
   @Override
   public void initialize() {
     
   }
-  private boolean pressed = false;
-  private boolean previousPressed = false;
+  
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double finnese = (RobotContainer.getInstance().getdriverXbox().getRightTriggerAxis() * .4 - 1) * -1;
-    DoubleSupplier fVX = () -> vX.getAsDouble() * finnese;
-    DoubleSupplier fVY = () -> vY.getAsDouble() * finnese;
+    //double finnese = (RobotContainer.getInstance().getdriverXbox().getRightTriggerAxis() * .4 - 1) * -1;
+    DoubleSupplier fVX = () -> vX.getAsDouble();
+    DoubleSupplier fVY = () -> vY.getAsDouble();
     if (Math.abs(heading.getAsDouble()) > swerve.getSwerveController().config.angleJoyStickRadiusDeadband) {
-      rotationSpeed = finnese * heading.getAsDouble()*swerve.getSwerveController().config.maxAngularVelocity;
+      rotationSpeed = heading.getAsDouble()*swerve.getSwerveController().config.maxAngularVelocity;
     }
     else {
       rotationSpeed = 0;
     }
-    boolean firstBool = RobotContainer.getInstance().getdriverXbox().getLeftBumper();
-    if(!firstBool && previousPressed){
-      pressed = !pressed;
-    }
-    previousPressed = firstBool;
+    
+    
     //double finnese = (RobotContainer.getInstance().getdriverXbox().getRightTriggerAxis() * .8 - 1) * -1;
     ChassisSpeeds desiredSpeeds = swerve.getTargetSpeeds(fVX.getAsDouble(), fVY.getAsDouble() , new Rotation2d(rotationSpeed));
     
@@ -129,7 +97,7 @@ public class TeleopDrive extends Command {
 
     // Make the robot move
     //if(!pressed){
-      swerve.drive(translation, rotationSpeed * .5 * finnese, false);
+      swerve.drive(translation, rotationSpeed, false);
     //}else{
       //swerve.driveFieldOriented(desiredSpeeds);
     //}
@@ -147,3 +115,5 @@ public class TeleopDrive extends Command {
   }
 
 }
+
+
