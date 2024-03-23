@@ -58,6 +58,7 @@ public class TeleopDrive extends Command {
 
     addRequirements(swerve);
   }
+  @Deprecated
   public TeleopDrive(SwerveSubsystem swerve, double vX, double vY,
       double heading, double o) {
     
@@ -74,6 +75,7 @@ public class TeleopDrive extends Command {
     this.vY = dy;
     this.heading = dTheta;
   }
+  @Deprecated
   public TeleopDrive(SwerveSubsystem swerve, double vX, double vY,
       double heading, boolean o) {
     

@@ -11,6 +11,7 @@ import frc.robot.commands.AutoIntake;
 import frc.robot.commands.AutoShoot;
 import frc.robot.commands.RunIntake;
 import frc.robot.commands.ShootAtPercentSpeed;
+import frc.robot.commands.swervedrive.drivebase.AutonDrive;
 import frc.robot.commands.swervedrive.drivebase.TeleopDrive;
 import frc.robot.subsystems.*;
 import frc.robot.subsystems.Shooter;
@@ -30,7 +31,7 @@ public class ShootAndLeave extends SequentialCommandGroup{
                     (new AutoIntake(-1, outTake)))
                     
             ).withTimeout(5),
-            (new TeleopDrive(drivetrain, .75, 0 , 0, true)).withTimeout(1),
+            (new AutonDrive(drivetrain, .75, 0 , 0)).withTimeout(1),
             Commands.race((new AutoShoot(0, shooter)),//
                 (new AutoIntake(0, outTake))
                 ).withTimeout(1)

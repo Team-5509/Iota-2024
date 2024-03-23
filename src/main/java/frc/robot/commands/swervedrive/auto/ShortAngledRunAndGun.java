@@ -15,6 +15,7 @@ import frc.robot.commands.AutoIntake;
 import frc.robot.commands.AutoShoot;
 import frc.robot.commands.RunIntake;
 import frc.robot.commands.ShootAtPercentSpeed;
+import frc.robot.commands.swervedrive.drivebase.AutonDrive;
 import frc.robot.commands.swervedrive.drivebase.TeleopDrive;
 import frc.robot.subsystems.*;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
@@ -35,7 +36,7 @@ public class ShortAngledRunAndGun extends SequentialCommandGroup{
                             (new AutoIntake(-1, outTake)))
                             
                     ).withTimeout(5),
-                    (new TeleopDrive(drivetrain, .2, .8 , 0, 0)).withTimeout(1.5),
+                    (new AutonDrive(drivetrain, .2, .8 , 0)).withTimeout(1.5),
                     Commands.race((new AutoShoot(0, shooter)),//
                         (new AutoIntake(0, outTake))
                         ).withTimeout(1)
@@ -51,7 +52,7 @@ public class ShortAngledRunAndGun extends SequentialCommandGroup{
                             (new AutoIntake(-1, outTake)))
                             
                     ).withTimeout(5),
-                    (new TeleopDrive(drivetrain, .2, -.8 , 0, 0)).withTimeout(1.5),
+                    (new AutonDrive(drivetrain, .2, -.8 , 0)).withTimeout(1.5),
                     Commands.race((new AutoShoot(0, shooter)),//
                         (new AutoIntake(0, outTake))
                         ).withTimeout(1)
@@ -70,7 +71,7 @@ public class ShortAngledRunAndGun extends SequentialCommandGroup{
                     (new AutoIntake(-1, outTake)))
                             
             ).withTimeout(5),
-            (new TeleopDrive(drivetrain, .2, .8 , 0, 0)).withTimeout(1.5),
+            (new AutonDrive(drivetrain, .2, .8 , 0)).withTimeout(1.5),
             Commands.race((new AutoShoot(0, shooter)),//
                 (new AutoIntake(0, outTake))
                 ).withTimeout(1)
