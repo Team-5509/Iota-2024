@@ -24,8 +24,8 @@ import swervelib.math.SwerveMath;
 public class AutonDrive extends Command {
 
   private final SwerveSubsystem swerve;
-  private final DoubleSupplier vX, vY, heading;
-  private double rotationSpeed;
+  private final double vX, vY, vTheta;
+  //private double rotationSpeed;
 
   /**
    * Used to drive a swerve robot in full field-centric mode. vX and vY supply
@@ -48,14 +48,14 @@ public class AutonDrive extends Command {
    *                station glass.
    * @param heading DoubleSupplier that supplies the robot's heading angle.
    */
-  public AutonDrive(SwerveSubsystem swerve, DoubleSupplier vX, DoubleSupplier vY,
-      DoubleSupplier heading) {
+  public AutonDrive(SwerveSubsystem swerve, double vX, double vY,
+      double vTheta) {
     this.swerve = swerve;
     this.vX = vX;
     this.vY = vY;
-    this.heading = heading;
+    this.vTheta = vTheta;
     
-    rotationSpeed = 0;
+    
 
     addRequirements(swerve);
   }
@@ -71,26 +71,27 @@ public class AutonDrive extends Command {
   @Override
   public void execute() {
     //double finnese = (RobotContainer.getInstance().getdriverXbox().getRightTriggerAxis() * .4 - 1) * -1;
-    DoubleSupplier fVX = () -> vX.getAsDouble();
-    DoubleSupplier fVY = () -> vY.getAsDouble();
+    DoubleSupplier fVX = () -> vX;
+    DoubleSupplier fVY = () -> vY;
+    DoubleSupplier fVTheta = () -> vTheta;
     
-    rotationSpeed = heading.getAsDouble()*swerve.getSwerveController().config.maxAngularVelocity;
+    //rotationSpeed = heading.getAsDouble()*swerve.getSwerveController().config.maxAngularVelocity;
     
     //double finnese = (RobotContainer.getInstance().getdriverXbox().getRightTriggerAxis() * .8 - 1) * -1;
-    ChassisSpeeds desiredSpeeds = swerve.getTargetSpeeds(fVX.getAsDouble(), fVY.getAsDouble() , new Rotation2d(rotationSpeed));
+    //ChassisSpeeds desiredSpeeds = swerve.getTargetSpeeds(fVX.getAsDouble(), fVY.getAsDouble() , new Rotation2d(rotationSpeed));
     
     // Limit velocity to prevent tippy
-    Translation2d translation = SwerveController.getTranslation2d(desiredSpeeds);
+    //Translation2d translation = SwerveController.getTranslation2d(desiredSpeeds);
     
     // translation = SwerveMath.limitVelocity(translation, swerve.getFieldVelocity(), swerve.getPose(),
     //     Constants.LOOP_TIME, Constants.ROBOT_MASS, List.of(Constants.CHASSIS),
     //     swerve.getSwerveDriveConfiguration());
-    SmartDashboard.putNumber("LimitedTranslation", translation.getX());
-    SmartDashboard.putString("Translation", translation.toString());
+    // SmartDashboard.putNumber("LimitedTranslation", translation.getX());
+    // SmartDashboard.putString("Translation", translation.toString());
 
     // Make the robot move
     //if(!pressed){
-      swerve.drive(translation, rotationSpeed, false);
+      swerve.driveCommand(fVX, fVY, fVTheta);
     //}else{
       //swerve.driveFieldOriented(desiredSpeeds);
     //}
